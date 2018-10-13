@@ -4,15 +4,19 @@ import axios from 'axios';
 import StudentList from './StudentList.js';
 import SingleStudent from './SingleStudent.js';
 
+import Form from './Form'
+
 export default class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
       students: [],
       selectedStudent: {},
+      toggle: false
     };
 
     this.selectStudent = this.selectStudent.bind(this);
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
@@ -35,10 +39,20 @@ export default class Main extends Component {
     });
   }
 
+  handleClick () {
+    this.setState({
+      toggle: !this.state.toggle
+    })
+  }
+
   render() {
     return (
       <div>
         <h1>Students</h1>
+        <button onClick={this.handleClick}>Add Student</button> 
+        {
+          this.state.toggle && <Form /> 
+        }
         <table>
           <thead>
             <tr>
